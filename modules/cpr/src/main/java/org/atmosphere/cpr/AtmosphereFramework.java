@@ -1647,6 +1647,7 @@ public class AtmosphereFramework {
                 handlerWrapper.atmosphereHandler.destroy();
             } catch (Throwable t) {
                 logger.warn("", t);
+            }
         }
 
         if (metaBroadcaster != null) metaBroadcaster.destroy();
