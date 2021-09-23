@@ -20,10 +20,11 @@ public class UUIDBroadcasterCacheThreadingTest {
     @Test
     public void testUuidBroadcasterCacheThreading() {
         AtmosphereConfig config = new AtmosphereFramework().getAtmosphereConfig();
+        BroadcasterConfig bConfig = new BroadcasterConfig(null,config,false,null);
         DefaultBroadcasterFactory factory = new DefaultBroadcasterFactory(DefaultBroadcaster.class, "NEVER", config);
         config.framework().setBroadcasterFactory(factory);
         final UUIDBroadcasterCache cache = new UUIDBroadcasterCache();
-        cache.configure(config);
+        cache.configure(bConfig);
 
         Thread t = new Thread(new Runnable() {
             @Override
