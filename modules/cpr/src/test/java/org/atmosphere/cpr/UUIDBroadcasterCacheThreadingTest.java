@@ -15,7 +15,7 @@ public class UUIDBroadcasterCacheThreadingTest {
     public static final int NUM_MESSAGES = 100000;
     private final AtomicInteger counter = new AtomicInteger(0);
     private static final String CLIENT_ID = java.util.UUID.randomUUID().toString();
-    private final ConcurrentLinkedQueue<Object> retreivedMessages = new ConcurrentLinkedQueue<>();
+    private final ConcurrentLinkedQueue<Object> retreivedMessages = new ConcurrentLinkedQueue<Object>();
 
     @Test
     public void testUuidBroadcasterCacheThreading() {
