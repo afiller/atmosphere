@@ -72,7 +72,7 @@ public class UUIDBroadcasterCacheTest {
         broadcaster.broadcast("e2").get();
         broadcaster.broadcast("e3").get();
 
-        assertEquals(broadcasterCache.messages().get(ar.uuid()).getQueue().size(), 2);
+        assertEquals(broadcasterCache.messages().get(ar.uuid()).size(), 2);
     }
 
     @Test
@@ -86,7 +86,7 @@ public class UUIDBroadcasterCacheTest {
         broadcaster.broadcast("e3").get();
 
         assertEquals(broadcasterCache.messages().size(), 1);
-        assertEquals(broadcasterCache.messages().get(ar.uuid()).getQueue().size(), 1);
+        assertEquals(broadcasterCache.messages().get(ar.uuid()).size(), 1);
     }
 
     @Test
@@ -133,7 +133,7 @@ public class UUIDBroadcasterCacheTest {
 
         latch.await(10, TimeUnit.SECONDS);
 
-        assertEquals(broadcasterCache.messages().get(ar.uuid()).getQueue().size(), 100);
+        assertEquals(broadcasterCache.messages().get(ar.uuid()).size(), 100);
     }
 
     public final static class AR implements AtmosphereHandler {
