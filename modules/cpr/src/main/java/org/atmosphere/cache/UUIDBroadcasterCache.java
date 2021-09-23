@@ -300,7 +300,7 @@ public class UUIDBroadcasterCache implements BroadcasterCache {
         return match;
     }
 
-    public Map<String, ClientQueue> messages() {
+    public Map<String, ConcurrentLinkedQueue<CacheMessage>> messages() {
         return messages;
     }
 
