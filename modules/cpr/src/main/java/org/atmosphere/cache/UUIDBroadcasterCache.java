@@ -194,7 +194,7 @@ public class UUIDBroadcasterCache implements BroadcasterCache {
 
     private List<Object> queueToList(ConcurrentLinkedQueue<CacheMessage> clientQueue) {
         Iterator<CacheMessage> iter = clientQueue.iterator();
-        List<Object> list = new ArrayList<>();
+        List<Object> list = new ArrayList<Object>();
         while (iter.hasNext()) {
             list.add(iter.next().getMessage());
         }
@@ -248,7 +248,7 @@ public class UUIDBroadcasterCache implements BroadcasterCache {
             ConcurrentLinkedQueue<CacheMessage> clientQueue = messages.get(clientId);
 
             if (clientQueue == null) {
-                clientQueue = new ConcurrentLinkedQueue<>();
+                clientQueue = new ConcurrentLinkedQueue<CacheMessage>();
                 // Make sure the client is not in the process of being invalidated
                 if (activeClients.get(clientId) != null) {
                     messages.put(clientId, clientQueue);
