@@ -11,7 +11,7 @@
     <artifactId>atmosphere-project</artifactId>
     <packaging>pom</packaging>
     <name>atmosphere-project</name>
-    <version>2.2.13-pathmate2</version>
+    <version>2.2.13-pathmate3</version>
     <url>http://github.com/Atmosphere/atmosphere</url>
     <prerequisites>
         <maven>2.2.0</maven>
@@ -521,6 +521,6 @@
         <logback-version>1.0.13</logback-version>
         <jbossaswebsockets-version>0.5</jbossaswebsockets-version>
         <compat-version>2.0.1</compat-version>
-        <shiro-version>1.9.0</shiro-version>
+        <shiro-version>1.9.1</shiro-version>
     </properties>
 </project>
