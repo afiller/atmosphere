@@ -504,7 +504,7 @@
         <jetty8-version>8.1.9.v20130131</jetty8-version>
         <jetty9-version>9.4.52.v20230823</jetty9-version>
         <tomcat-version>6.0.53</tomcat-version>
-        <tomcat7-version>8.5.96</tomcat7-version>
+        <tomcat7-version>7.0.109</tomcat7-version>
         <jgroups-version>3.1.0.Final</jgroups-version>
         <common-logging-version>1.1.1</common-logging-version>
         <scala.version>2.9.2</scala.version>
