@@ -500,7 +500,7 @@
         <grizzly2-version>2.3.12</grizzly2-version>
         <jboss-version>2.1.1.GA</jboss-version>
         <grizzly10-version>1.0.31</grizzly10-version>
-        <jetty7-version>7.6.9.v20130131</jetty7-version>
+        <jetty7-version>8.0.0.v20110901</jetty7-version>
         <jetty8-version>8.1.9.v20130131</jetty8-version>
         <jetty9-version>9.2.25.v20180606</jetty9-version>
         <tomcat-version>6.0.53</tomcat-version>
