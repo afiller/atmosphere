@@ -28,8 +28,13 @@ DIR=$(dirname $(readlink -f $0 || realpath $0))
 echo "$DIR"
 
 # Configuration
-export JAVA_HOME=/Library/Java/JavaVirtualMachines/graalvm-ce-java8-20.1.0/Contents/Home
+export JAVA_HOME="`/usr/libexec/java_home -v 1.8`"
+
+# Set versions
+"$DIR/set-version.sh"
 
 # Compilation
 mvn clean deploy -Dmaven.test.skip=true
 
+# Clear versions
+"$DIR/clear-version.sh"
