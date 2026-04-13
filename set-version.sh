@@ -25,7 +25,7 @@ fi
 DIR=$(dirname "$(readlink -f "$0" || realpath "$0")")
 
 # Change to path
-echo $DIR
+cd "$DIR"
 
 # Properties file
 PROPS_FILE="${DIR}/version.properties"

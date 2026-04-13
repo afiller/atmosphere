@@ -25,16 +25,16 @@ fi
 DIR=$(dirname "$(readlink -f "$0" || realpath "$0")")
 
 # Change to path
-echo "$DIR"
+cd "$DIR"
 
 # Configuration
 export JAVA_HOME="`/usr/libexec/java_home -v 1.8`"
 
 # Set versions
-"$DIR/set-version.sh"
+./set-version.sh
 
 # Compilation
 mvn clean deploy -Dmaven.test.skip=true
 
 # Clear versions
-"$DIR/clear-version.sh"
+.clear-version.sh
