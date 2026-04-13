@@ -22,7 +22,7 @@ if [ "$PLATFORM" = "Darwin" ]
 	export LANG=C
 	alias readlink=greadlink
 fi
-DIR=$(dirname $(readlink -f $0 || realpath $0))
+DIR=$(dirname "$(readlink -f "$0" || realpath "$0")")
 
 # Change to path
 echo "$DIR"
