@@ -293,14 +293,18 @@ public class DefaultWebSocketProcessor implements WebSocketProcessor, Serializab
                         String targetPath = a.path();
                         if (targetPath.indexOf("{") != -1 && targetPath.indexOf("}") != -1) {
                             try {
+                                // Resolve the per-request handler locally instead of registering it under the
+                                // request-derived path. Storing the request path as a handler key would (a) let
+                                // untrusted input flow into the EndpointMapper's Pattern.compile (Regex Injection
+                                // / ReDoS) and (b) grow the handlers map unbounded, one entry per distinct URL.
                                 boolean singleton = w.proxied.getClass().getAnnotation(Singleton.class) != null;
                                 if (!singleton) {
-                                    registerWebSocketHandler(path, new WebSocketHandlerProxy(a.broadcaster(),
-                                            framework.newClassInstance(WebSocketHandler.class, w.proxied.getClass()), w.interceptors()));
+                                    p = new WebSocketHandlerProxy(a.broadcaster(),
+                                            framework.newClassInstance(WebSocketHandler.class, w.proxied.getClass()),
+                                            w.interceptors()).path(path);
                                 } else {
-                                    registerWebSocketHandler(path, new WebSocketHandlerProxy(a.broadcaster(), w, w.interceptors()));
+                                    p = new WebSocketHandlerProxy(a.broadcaster(), w, w.interceptors()).path(path);
                                 }
-                                p = handlers.get(path);
                             } catch (Throwable e) {
                                 logger.warn("Unable to create WebSocketHandler", e);
                             }
