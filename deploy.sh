@@ -28,7 +28,7 @@ DIR=$(dirname "$(readlink -f "$0" || realpath "$0")")
 cd "$DIR"
 
 # Configuration
-export JAVA_HOME="`/usr/libexec/java_home -v 17`"
+export JAVA_HOME="`/usr/libexec/java_home -v 1.8`"
 
 # Set versions
 ./set-version.sh

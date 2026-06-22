@@ -37,7 +37,6 @@
                 <configuration>
                     <instructions>
                         <Import-Package>
-                            org.apache.shiro*;resolution:=optional,
                             org.jboss.vfs*;resolution:=optional,
                             javax.servlet*;version="${servlet-version-range}",
                             javax.websocket*;resolution:=optional,
@@ -87,29 +86,15 @@
         <dependency>
             <groupId>org.mockito</groupId>
             <artifactId>mockito-core</artifactId>
-            <version>5.14.2</version>
+            <version>4.11.0</version>
             <type>jar</type>
             <scope>test</scope>
-        </dependency>
-        
-        <dependency>
-            <groupId>org.apache.shiro</groupId>
-            <artifactId>shiro-core</artifactId>
-            <version>${shiro-version}</version>
-            <scope>provided</scope>
         </dependency>
 
         <dependency>
             <groupId>org.atmosphere</groupId>
             <artifactId>atmosphere-stubs</artifactId>
             <version>1.0.0</version>
-            <scope>provided</scope>
-        </dependency>
-        
-        <dependency>
-            <groupId>org.apache.shiro</groupId>
-            <artifactId>shiro-web</artifactId>
-            <version>${shiro-version}</version>
             <scope>provided</scope>
         </dependency>
     </dependencies>
