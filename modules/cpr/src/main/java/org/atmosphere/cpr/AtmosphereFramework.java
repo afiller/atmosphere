@@ -1408,7 +1408,10 @@ public class AtmosphereFramework {
 
         try {
             URL url = sc.getServletContext().getResource(handlersPath);
-            URLClassLoader urlC = new URLClassLoader(new URL[]{url},
+            // Java 9+ rejects null entries in the URLClassLoader's URL array (URLClassPath uses an
+            // ArrayDeque, which throws NPE on null). Guard against a missing handlers path.
+            URL[] urls = url == null ? new URL[0] : new URL[]{url};
+            URLClassLoader urlC = new URLClassLoader(urls,
                     Thread.currentThread().getContextClassLoader());
             loadAtmosphereDotXml(sc.getServletContext().
                     getResourceAsStream(atmosphereDotXmlPath), urlC);

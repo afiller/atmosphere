@@ -77,7 +77,10 @@ public class ReflectorServletProcessor extends AbstractReflectorAtmosphereHandle
     void loadWebApplication(ServletConfig sc) throws Exception {
 
         URL url = sc.getServletContext().getResource("/WEB-INF/lib/");
-        URLClassLoader urlC = new URLClassLoader(new URL[]{url},
+        // Java 9+ rejects null entries in the URLClassLoader's URL array (URLClassPath uses an
+        // ArrayDeque, which throws NPE on null). Guard against a missing /WEB-INF/lib/ resource.
+        URL[] urls = url == null ? new URL[0] : new URL[]{url};
+        URLClassLoader urlC = new URLClassLoader(urls,
                 Thread.currentThread().getContextClassLoader());
 
         loadServlet(sc, urlC);
