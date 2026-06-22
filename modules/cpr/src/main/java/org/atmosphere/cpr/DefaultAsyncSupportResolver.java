@@ -18,28 +18,8 @@
 package org.atmosphere.cpr;
 
 import org.atmosphere.container.BlockingIOCometSupport;
-import org.atmosphere.container.GlassFishServ30WebSocketSupport;
-import org.atmosphere.container.GlassFishWebSocketSupport;
-import org.atmosphere.container.GlassFishv2CometSupport;
-import org.atmosphere.container.Grizzly2CometSupport;
-import org.atmosphere.container.Grizzly2WebSocketSupport;
-import org.atmosphere.container.GrizzlyCometSupport;
-import org.atmosphere.container.GrizzlyServlet30WebSocketSupport;
-import org.atmosphere.container.JBossAsyncSupportWithWebSocket;
-import org.atmosphere.container.JBossWebCometSupport;
 import org.atmosphere.container.JSR356AsyncSupport;
-import org.atmosphere.container.Jetty7CometSupport;
-import org.atmosphere.container.Jetty9AsyncSupportWithWebSocket;
-import org.atmosphere.container.JettyAsyncSupportWithWebSocket;
-import org.atmosphere.container.JettyCometSupport;
-import org.atmosphere.container.JettyServlet30AsyncSupportWithWebSocket;
-import org.atmosphere.container.NettyCometSupport;
 import org.atmosphere.container.Servlet30CometSupport;
-import org.atmosphere.container.Tomcat7AsyncSupportWithWebSocket;
-import org.atmosphere.container.Tomcat7CometSupport;
-import org.atmosphere.container.Tomcat7Servlet30SupportWithWebSocket;
-import org.atmosphere.container.TomcatCometSupport;
-import org.atmosphere.container.WebLogicServlet30WithWebSocket;
 import org.atmosphere.util.IOUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -57,25 +37,7 @@ public class DefaultAsyncSupportResolver implements AsyncSupportResolver {
     private static final Logger logger = LoggerFactory.getLogger(DefaultAsyncSupportResolver.class);
 
     public final static String SERVLET_30 = "javax.servlet.AsyncListener";
-    public final static String GLASSFISH_V2 = "com.sun.enterprise.web.PEWebContainer";
-    public final static String TOMCAT_7 = "org.apache.catalina.comet.CometFilterChain";
-    public final static String TOMCAT_WEBSOCKET = "org.apache.coyote.http11.upgrade.UpgradeInbound";
-    public final static String TOMCAT = "org.apache.coyote.http11.Http11NioProcessor";
-    public final static String JBOSS_5 = "org.jboss.";
-    public final static String JETTY = "org.mortbay.util.ajax.Continuation";
-    public final static String JETTY_7 = "org.eclipse.jetty.servlet.ServletContextHandler";
-    public final static String JETTY_8 = "org.eclipse.jetty.continuation.Servlet3Continuation";
-    public final static String JETTY_9 = "org.eclipse.jetty.websocket.api.WebSocketPolicy";
-    public final static String GRIZZLY = "com.sun.grizzly.http.servlet.ServletAdapter";
-    public final static String GRIZZLY2 = "org.glassfish.grizzly.http.servlet.ServletHandler";
-    public final static String JBOSSWEB = "org.apache.catalina.connector.HttpEventImpl";
-    public final static String GRIZZLY_WEBSOCKET = "com.sun.grizzly.websockets.WebSocketEngine";
-    public final static String GRIZZLY2_WEBSOCKET = "org.glassfish.grizzly.websockets.WebSocketEngine";
-    public final static String NETTY = "org.jboss.netty.channel.Channel";
-    public final static String JBOSS_AS7_WEBSOCKET = "org.atmosphere.jboss.as.websockets.servlet.WebSocketServlet";
     public final static String JSR356_WEBSOCKET = "javax.websocket.Endpoint";
-    public final static String WEBLOGIC_WEBSOCKET = "weblogic.websocket.annotation.WebSocket";
-    public final static String HK2 = "org.glassfish.hk2.utilities.reflection.ReflectionHelper";
 
     private final AtmosphereConfig config;
 
@@ -103,98 +65,15 @@ public class DefaultAsyncSupportResolver implements AsyncSupportResolver {
      * @return
      */
     public List<Class<? extends AsyncSupport>> detectContainersPresent() {
-        return new LinkedList<Class<? extends AsyncSupport>>() {
-            {
-                if (testClassExists(GLASSFISH_V2))
-                    add(GlassFishv2CometSupport.class);
-
-                if (testClassExists(JETTY_9))
-                    add(Jetty7CometSupport.class);
-
-                if (testClassExists(JETTY_8))
-                    add(Jetty7CometSupport.class);
-
-                if (testClassExists(JETTY_7))
-                    add(Jetty7CometSupport.class);
-
-                if (testClassExists(JETTY))
-                    add(JettyCometSupport.class);
-
-                if (testClassExists(JBOSSWEB))
-                    add(JBossWebCometSupport.class);
-
-                if (testClassExists(TOMCAT_7))
-                    add(Tomcat7CometSupport.class);
-
-                if (testClassExists(TOMCAT) || testClassExists(JBOSS_5))
-                    add(TomcatCometSupport.class);
-
-                if (testClassExists(GRIZZLY))
-                    add(GrizzlyCometSupport.class);
-
-                if (testClassExists(GRIZZLY2))
-                    add(Grizzly2CometSupport.class);
-
-                if (testClassExists(NETTY))
-                    add(NettyCometSupport.class);
-            }
-        };
+        return new LinkedList<Class<? extends AsyncSupport>>();
     }
 
     public List<Class<? extends AsyncSupport>> detectWebSocketPresent(final boolean useNativeIfPossible, final boolean useServlet30Async) {
 
         return new LinkedList<Class<? extends AsyncSupport>>() {
             {
-                if (useServlet30Async && !useNativeIfPossible) {
-
-                    if (testClassExists(TOMCAT_WEBSOCKET))
-                        add(Tomcat7Servlet30SupportWithWebSocket.class);
-
-                    if (testClassExists(JETTY_9))
-                        add(Jetty9AsyncSupportWithWebSocket.class);
-
-                    if (testClassExists(JETTY_8))
-                        add(JettyServlet30AsyncSupportWithWebSocket.class);
-
-                    if (testClassExists(GRIZZLY2_WEBSOCKET))
-                        add(GlassFishServ30WebSocketSupport.class);
-
-                    if (testClassExists(GRIZZLY_WEBSOCKET))
-                        add(GrizzlyServlet30WebSocketSupport.class);
-
-                    if (testClassExists(WEBLOGIC_WEBSOCKET) && !testClassExists(HK2)) {
-                        logger.warn("***************************************************************************************************");
-                        logger.warn("WebLogic WebSocket detected and will be deployed under the hardcoded path <<application-name>>/ws/*");
-                        logger.warn("***************************************************************************************************");
-                        add(WebLogicServlet30WithWebSocket.class);
-                    }
-
-                    if (testClassExists(JSR356_WEBSOCKET))
-                        add(JSR356AsyncSupport.class);
-                } else {
-                    if (testClassExists(TOMCAT_WEBSOCKET))
-                        add(Tomcat7AsyncSupportWithWebSocket.class);
-
-                    if (testClassExists(JETTY_9))
-                        add(Jetty9AsyncSupportWithWebSocket.class);
-
-                    if (testClassExists(JETTY_8))
-                        add(JettyAsyncSupportWithWebSocket.class);
-
-                    if (testClassExists(GRIZZLY_WEBSOCKET))
-                        add(GlassFishWebSocketSupport.class);
-
-                    if (testClassExists(GRIZZLY2_WEBSOCKET))
-                        add(Grizzly2WebSocketSupport.class);
-
-                    if (testClassExists(JBOSS_AS7_WEBSOCKET))
-                        add(JBossAsyncSupportWithWebSocket.class);
-
-                    if (isEmpty()) {
-                        if (testClassExists(JSR356_WEBSOCKET))
-                            add(JSR356AsyncSupport.class);
-                    }
-                }
+                if (testClassExists(JSR356_WEBSOCKET))
+                    add(JSR356AsyncSupport.class);
             }
         };
     }

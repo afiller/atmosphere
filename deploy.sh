@@ -37,4 +37,4 @@ export JAVA_HOME="`/usr/libexec/java_home -v 1.8`"
 mvn clean deploy -Dmaven.test.skip=true
 
 # Clear versions
-.clear-version.sh
+./clear-version.sh
