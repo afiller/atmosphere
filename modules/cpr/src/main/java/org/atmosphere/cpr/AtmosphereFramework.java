@@ -24,8 +24,6 @@ import org.atmosphere.config.AtmosphereHandlerConfig;
 import org.atmosphere.config.AtmosphereHandlerProperty;
 import org.atmosphere.config.FrameworkConfiguration;
 import org.atmosphere.container.BlockingIOCometSupport;
-import org.atmosphere.container.Tomcat7BIOSupportWithWebSocket;
-import org.atmosphere.container.WebLogicServlet30WithWebSocket;
 import org.atmosphere.handler.AbstractReflectorAtmosphereHandler;
 import org.atmosphere.handler.ReflectorServletProcessor;
 import org.atmosphere.interceptor.AndroidAtmosphereInterceptor;
@@ -913,11 +911,6 @@ public class AtmosphereFramework {
         }
         isInit = true;
         config.initComplete();
-
-        // wlc 12.x
-        if (WebLogicServlet30WithWebSocket.class.isAssignableFrom(asyncSupport.getClass())) {
-            servletConfig.getServletContext().setAttribute(AtmosphereConfig.class.getName(), config);
-        }
 
         return this;
     }
@@ -2087,7 +2080,7 @@ public class AtmosphereFramework {
                         "e.g NIO/APR or HTTP for all. If not, {} will be used and cannot be changed.", BlockingIOCometSupport.class.getName(), ex);
 
                 AsyncSupport current = asyncSupport;
-                asyncSupport = asyncSupport.supportWebSocket() && !isJBoss ? new Tomcat7BIOSupportWithWebSocket(config) : new BlockingIOCometSupport(config);
+                asyncSupport = new BlockingIOCometSupport(config);
                 if (current instanceof AsynchronousProcessor) {
                     ((AsynchronousProcessor) current).shutdown();
                 }

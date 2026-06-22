@@ -59,7 +59,7 @@ public class BlockingIOCometSupport extends AsynchronousProcessor {
             throws IOException, ServletException {
 
         Action action = null;
-        try {
+        {
             action = suspended(req, res);
             if (action.type() == Action.TYPE.SUSPEND) {
                 suspend(action, req, res);
@@ -77,40 +77,6 @@ public class BlockingIOCometSupport extends AsynchronousProcessor {
                 if (nextAction.type() == Action.TYPE.SUSPEND) {
                     suspend(action, req, res);
                 }
-            }
-        } finally {
-            Object event = req.getAttribute(TomcatCometSupport.COMET_EVENT);
-            if (event != null) {
-                try {
-                    Class.forName(org.apache.catalina.CometEvent.class.getName());
-
-                    if (org.apache.catalina.CometEvent.class.isAssignableFrom(event.getClass())) {
-                        org.apache.catalina.CometEvent.class.cast(event).close();
-                    }
-                } catch (Throwable e) {
-                    logger.trace("", e);
-                }
-
-
-                try {
-                    Class.forName(org.apache.catalina.comet.CometEvent.class.getName());
-
-                    if (org.apache.catalina.comet.CometEvent.class.isAssignableFrom(event.getClass())) {
-                        org.apache.catalina.comet.CometEvent.class.cast(event).close();
-                    }
-                } catch (Throwable e) {
-                    logger.trace("", e);
-                }
-            }
-
-            try {
-                event = req.getAttribute(JBossWebCometSupport.HTTP_EVENT);
-                if (event != null) {
-                    Class.forName(org.jboss.servlet.http.HttpEvent.class.getName());
-                    org.jboss.servlet.http.HttpEvent.class.cast(event).close();
-                }
-            } catch (Throwable e) {
-                logger.trace("", e);
             }
         }
         return action;
