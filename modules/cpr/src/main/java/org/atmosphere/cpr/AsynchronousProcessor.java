@@ -22,10 +22,10 @@ import org.atmosphere.util.Utils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.servlet.Servlet;
-import javax.servlet.ServletConfig;
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpSession;
+import jakarta.servlet.Servlet;
+import jakarta.servlet.ServletConfig;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.Collection;
 import java.util.List;
@@ -101,7 +101,7 @@ public abstract class AsynchronousProcessor implements AsyncSupport<AtmosphereRe
      * @param response the {@link AtmosphereResponse}
      * @return action the Action operation.
      * @throws java.io.IOException
-     * @throws javax.servlet.ServletException
+     * @throws jakarta.servlet.ServletException
      */
     public Action suspended(AtmosphereRequest request, AtmosphereResponse response) throws IOException, ServletException {
         return action(request, response);
@@ -114,7 +114,7 @@ public abstract class AsynchronousProcessor implements AsyncSupport<AtmosphereRe
      * @param res the {@link AtmosphereResponse}
      * @return action the Action operation.
      * @throws java.io.IOException
-     * @throws javax.servlet.ServletException
+     * @throws jakarta.servlet.ServletException
      */
     Action action(AtmosphereRequest req, AtmosphereResponse res) throws IOException, ServletException {
 
@@ -356,7 +356,7 @@ public abstract class AsynchronousProcessor implements AsyncSupport<AtmosphereRe
      *
      * @param req the {@link AtmosphereResponse}
      * @return the {@link AtmosphereHandler} mapped to the passed servlet-path.
-     * @throws javax.servlet.ServletException
+     * @throws jakarta.servlet.ServletException
      */
     protected AtmosphereHandlerWrapper map(AtmosphereRequest req) throws ServletException {
         AtmosphereHandlerWrapper atmosphereHandlerWrapper = mapper.map(req, config.handlers());
@@ -378,7 +378,7 @@ public abstract class AsynchronousProcessor implements AsyncSupport<AtmosphereRe
      * @param response the {@link AtmosphereResponse}
      * @return action the Action operation.
      * @throws java.io.IOException
-     * @throws javax.servlet.ServletException
+     * @throws jakarta.servlet.ServletException
      */
     public Action resumed(AtmosphereRequest request, AtmosphereResponse response)
             throws IOException, ServletException {
@@ -408,7 +408,7 @@ public abstract class AsynchronousProcessor implements AsyncSupport<AtmosphereRe
      * @param res the {@link AtmosphereResponse}
      * @return action the Action operation.
      * @throws java.io.IOException
-     * @throws javax.servlet.ServletException
+     * @throws jakarta.servlet.ServletException
      */
     public Action timedout(AtmosphereRequest req, AtmosphereResponse res)
             throws IOException, ServletException {
@@ -537,7 +537,7 @@ public abstract class AsynchronousProcessor implements AsyncSupport<AtmosphereRe
      * @param res the {@link AtmosphereResponse}
      * @return action the Action operation.
      * @throws java.io.IOException
-     * @throws javax.servlet.ServletException
+     * @throws jakarta.servlet.ServletException
      */
     public Action cancelled(final AtmosphereRequest req, final AtmosphereResponse res)
             throws IOException, ServletException {

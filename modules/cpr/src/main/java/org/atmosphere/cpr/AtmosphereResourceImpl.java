@@ -23,7 +23,7 @@ import org.atmosphere.websocket.WebSocketEventListener;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.servlet.http.HttpSession;
+import jakarta.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.Enumeration;
 import java.util.UUID;

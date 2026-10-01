@@ -17,8 +17,8 @@ package org.atmosphere.cpr;
 
 import org.atmosphere.container.BlockingIOCometSupport;
 
-import javax.servlet.ServletConfig;
-import javax.servlet.ServletException;
+import jakarta.servlet.ServletConfig;
+import jakarta.servlet.ServletException;
 import java.awt.event.ActionEvent;
 import java.io.IOException;
 
@@ -48,7 +48,7 @@ public interface AsyncSupport<E extends AtmosphereResource> {
      * Initialize the WebServer using the {@link ServletConfig}
      *
      * @param sc the {@link ServletConfig}
-     * @throws javax.servlet.ServletException
+     * @throws jakarta.servlet.ServletException
      */
     public void init(ServletConfig sc) throws ServletException;
 
@@ -60,7 +60,7 @@ public interface AsyncSupport<E extends AtmosphereResource> {
      * @param res the {@link AtmosphereResponse}
      * @return the {@link Action} that was manipulated by the {@link AtmosphereHandler}
      * @throws java.io.IOException
-     * @throws javax.servlet.ServletException
+     * @throws jakarta.servlet.ServletException
      */
     public Action service(AtmosphereRequest req, AtmosphereResponse res) throws IOException, ServletException;
 

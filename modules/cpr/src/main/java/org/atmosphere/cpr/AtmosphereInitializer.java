@@ -19,14 +19,14 @@ import org.atmosphere.container.JSR356AsyncSupport;
 import org.atmosphere.util.IOUtils;
 import org.atmosphere.util.Utils;
 
-import javax.servlet.ServletContainerInitializer;
-import javax.servlet.ServletContext;
-import javax.servlet.ServletException;
-import javax.servlet.ServletRegistration;
-import javax.servlet.ServletRequestEvent;
-import javax.servlet.ServletRequestListener;
-import javax.servlet.annotation.HandlesTypes;
-import javax.servlet.http.HttpServletRequest;
+import jakarta.servlet.ServletContainerInitializer;
+import jakarta.servlet.ServletContext;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.ServletRegistration;
+import jakarta.servlet.ServletRequestEvent;
+import jakarta.servlet.ServletRequestListener;
+import jakarta.servlet.annotation.HandlesTypes;
+import jakarta.servlet.http.HttpServletRequest;
 
 import java.util.Enumeration;
 import java.util.List;

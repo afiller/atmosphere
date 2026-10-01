@@ -15,9 +15,9 @@
  */
 package org.atmosphere.util;
 
-import javax.servlet.ServletContext;
-import javax.servlet.http.HttpSession;
-import javax.servlet.http.HttpSessionContext;
+import jakarta.servlet.ServletContext;
+import jakarta.servlet.http.HttpSession;
+import jakarta.servlet.http.HttpSessionContext;
 import java.util.Collections;
 import java.util.Enumeration;
 import java.util.concurrent.ConcurrentHashMap;
@@ -83,18 +83,7 @@ public class FakeHttpSession implements HttpSession {
     }
 
     @Override
-    public HttpSessionContext getSessionContext() {
-        return null;
-    }
-
-    @Override
     public Object getAttribute(String name) {
-        if (!valid.get()) throw new IllegalStateException();
-        return attributes.get(name);
-    }
-
-    @Override
-    public Object getValue(String name) {
         if (!valid.get()) throw new IllegalStateException();
         return attributes.get(name);
     }
@@ -106,19 +95,7 @@ public class FakeHttpSession implements HttpSession {
     }
 
     @Override
-    public String[] getValueNames() {
-        if (!valid.get()) throw new IllegalStateException();
-        return (String[]) Collections.list(attributes.keys()).toArray();
-    }
-
-    @Override
     public void setAttribute(String name, Object value) {
-        if (!valid.get()) throw new IllegalStateException();
-        attributes.put(name, value);
-    }
-
-    @Override
-    public void putValue(String name, Object value) {
         if (!valid.get()) throw new IllegalStateException();
         attributes.put(name, value);
     }
@@ -129,10 +106,34 @@ public class FakeHttpSession implements HttpSession {
         attributes.remove(name);
     }
 
-    @Override
-    public void removeValue(String name) {
+    // Legacy HttpSession methods: still abstract in Servlet 5 (compile API),
+    // removed in Servlet 6. Kept without @Override so they are plain extra
+    // methods at runtime on Tomcat 11.
+
+    @Deprecated
+    public HttpSessionContext getSessionContext() {
+        return null;
+    }
+
+    @Deprecated
+    public Object getValue(String name) {
+        return getAttribute(name);
+    }
+
+    @Deprecated
+    public String[] getValueNames() {
         if (!valid.get()) throw new IllegalStateException();
-        attributes.remove(name);
+        return Collections.list(attributes.keys()).toArray(new String[0]);
+    }
+
+    @Deprecated
+    public void putValue(String name, Object value) {
+        setAttribute(name, value);
+    }
+
+    @Deprecated
+    public void removeValue(String name) {
+        removeAttribute(name);
     }
 
     public FakeHttpSession copyAttributes(HttpSession httpSession) {

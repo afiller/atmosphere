@@ -38,8 +38,8 @@
                     <instructions>
                         <Import-Package>
                             org.jboss.vfs*;resolution:=optional,
-                            javax.servlet*;version="${servlet-version-range}",
-                            javax.websocket*;resolution:=optional,
+                            jakarta.servlet*;version="${servlet-version-range}",
+                            jakarta.websocket*;resolution:=optional,
                             *,
                         </Import-Package>
                         <Export-Package>
@@ -62,10 +62,14 @@
         </plugins>
     </build>
     <dependencies>
+        <!-- Jakarta EE 9 APIs: jakarta.* namespace with Java 8 bytecode, so the
+             fork keeps building on JDK 1.8 while running on Tomcat 10+/11.
+             Do not call APIs removed in Servlet 6 (e.g. getRealPath on the
+             request, encodeUrl, HttpSession#getValue). -->
         <dependency>
-            <groupId>org.apache.geronimo.specs</groupId>
-            <artifactId>geronimo-servlet_3.0_spec</artifactId>
-            <version>1.0</version>
+            <groupId>jakarta.servlet</groupId>
+            <artifactId>jakarta.servlet-api</artifactId>
+            <version>${servlet-version}</version>
             <scope>provided</scope>
             <optional>true</optional>
         </dependency>
@@ -77,9 +81,9 @@
         </dependency>
 
         <dependency>
-            <groupId>javax.websocket</groupId>
-            <artifactId>javax.websocket-api</artifactId>
-            <version>1.0</version>
+            <groupId>jakarta.websocket</groupId>
+            <artifactId>jakarta.websocket-api</artifactId>
+            <version>${websocket-version}</version>
             <scope>provided</scope>
         </dependency>
 
@@ -89,13 +93,6 @@
             <version>4.11.0</version>
             <type>jar</type>
             <scope>test</scope>
-        </dependency>
-
-        <dependency>
-            <groupId>org.atmosphere</groupId>
-            <artifactId>atmosphere-stubs</artifactId>
-            <version>1.0.0</version>
-            <scope>provided</scope>
         </dependency>
     </dependencies>
 </project>

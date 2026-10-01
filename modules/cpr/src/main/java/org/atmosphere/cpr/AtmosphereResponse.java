@@ -21,11 +21,12 @@ import org.atmosphere.websocket.WebSocket;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.servlet.ServletOutputStream;
-import javax.servlet.ServletResponse;
-import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpServletResponseWrapper;
+import jakarta.servlet.ServletOutputStream;
+import jakarta.servlet.ServletResponse;
+import jakarta.servlet.WriteListener;
+import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpServletResponseWrapper;
 
 import java.io.IOException;
 import java.io.OutputStream;
@@ -62,7 +63,7 @@ public class AtmosphereResponse extends HttpServletResponseWrapper {
     static {
         Exception exception = null;
         try {
-            Class.forName("javax.servlet.AsyncContext");
+            Class.forName("jakarta.servlet.AsyncContext");
         } catch (Exception ex) {
             exception = ex;
         } finally {
@@ -240,16 +241,6 @@ public class AtmosphereResponse extends HttpServletResponseWrapper {
         return response.encodeRedirectURL(url);
     }
 
-    @Override
-    public String encodeUrl(String url) {
-        return response.encodeURL(url);
-    }
-
-    @Override
-    public String encodeRedirectUrl(String url) {
-        return response.encodeRedirectURL(url);
-    }
-
     public AtmosphereResponse delegateToNativeResponse(boolean delegateToNativeResponse) {
         this.delegateToNativeResponse = delegateToNativeResponse;
         return this;
@@ -371,13 +362,17 @@ public class AtmosphereResponse extends HttpServletResponseWrapper {
         }
     }
 
-    @Override
+    /**
+     * Sets the status and keeps the message for the asynchronous writer.
+     * The message is dropped when delegating, as Servlet 6 removed
+     * {@code setStatus(int, String)}.
+     */
     public void setStatus(int status, String statusMessage) {
         if (!delegateToNativeResponse) {
             this.statusMessage = statusMessage;
             this.status = status;
         } else {
-            _r().setStatus(status, statusMessage);
+            _r().setStatus(status);
         }
     }
 
@@ -612,11 +607,31 @@ public class AtmosphereResponse extends HttpServletResponseWrapper {
                         forceAsyncIOWriter = b;
                     }
                 }
+
+                @Override
+                public boolean isReady() {
+                    return true;
+                }
+
+                @Override
+                public void setWriteListener(WriteListener writeListener) {
+                    throw new UnsupportedOperationException("Non-blocking IO is not supported");
+                }
             };
         } else {
             return _r().getOutputStream() != null ? _r().getOutputStream() : new ServletOutputStream() {
                 @Override
                 public void write(int b) throws IOException {
+                }
+
+                @Override
+                public boolean isReady() {
+                    return true;
+                }
+
+                @Override
+                public void setWriteListener(WriteListener writeListener) {
+                    throw new UnsupportedOperationException("Non-blocking IO is not supported");
                 }
             };
         }

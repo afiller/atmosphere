@@ -15,7 +15,7 @@
  */
 package org.atmosphere.cpr;
 
-import javax.servlet.http.HttpSession;
+import jakarta.servlet.http.HttpSession;
 
 /**
  * Web.xml init-param configuration supported by Atmosphere.
@@ -108,7 +108,7 @@ public interface ApplicationConfig {
      */
     String PROPERTY_COMET_SUPPORT = "org.atmosphere.cpr.asyncSupport";
     /**
-     * Tell Atmosphere to use {@link javax.servlet.http.HttpSession}.
+     * Tell Atmosphere to use {@link jakarta.servlet.http.HttpSession}.
      * <p/>
      * Default: false<br>
      * Value: org.atmosphere.cpr.sessionSupport
@@ -200,7 +200,7 @@ public interface ApplicationConfig {
     String WEBSOCKET_IDLETIME = "org.atmosphere.websocket.maxIdleTime";
     /**
      * Timeout of JSR356 write operation.
-     * See {@link javax.websocket.RemoteEndpoint.Async#setSendTimeout(long)}
+     * See {@link jakarta.websocket.RemoteEndpoint.Async#setSendTimeout(long)}
      * <p/>
      * Default: 1 minute<br>
      * Value: org.atmosphere.websocket.writeTimeout
@@ -652,7 +652,7 @@ public interface ApplicationConfig {
      */
     String SCAN_CLASSPATH = "org.atmosphere.cpr.scanClassPath";
     /**
-     * Use a build in {@link javax.servlet.http.HttpSession} when using native WebSocket implementation.
+     * Use a build in {@link jakarta.servlet.http.HttpSession} when using native WebSocket implementation.
      * <p/>
      * Default: false<br>
      * Value: org.atmosphere.cpr.useBuildInSession

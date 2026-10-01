@@ -18,6 +18,22 @@ The current version is always tracked in `version.properties`. This file must ex
 
 ---
 
+## Jakarta EE (Tomcat 10+/11)
+
+Starting with version `2.2.13-pathmate-012` this fork uses the `jakarta.*` namespace only
+and no longer runs on `javax.*` containers (Tomcat 9 and older).
+
+- Compiled against the **Jakarta EE 9 APIs** (`jakarta.servlet-api` 5.0.0, `jakarta.websocket-api` 2.0.0). These keep the
+  Java 8 bytecode level, so the build still runs on **JDK 1.8**.
+- At runtime the fork targets **Servlet 6.x (Tomcat 11)**. Servlet 6 removed
+  a few deprecated methods that the Servlet 5 API still declares, so **never
+  call** e.g. `ServletRequest#getRealPath`, `HttpServletRequest#isRequestedSessionIdFromUrl`,
+  `HttpServletResponse#encodeUrl`/`encodeRedirectUrl`/`setStatus(int, String)`
+  or `HttpSession#getValue`/`putValue`/... Implementations of these methods
+  are kept without `@Override` only because the Servlet 5 API requires them.
+
+---
+
 ## Steps to Create a New Maintenance Version
 
 ### 1. Set the version

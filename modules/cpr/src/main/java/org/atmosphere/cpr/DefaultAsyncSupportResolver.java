@@ -36,8 +36,8 @@ public class DefaultAsyncSupportResolver implements AsyncSupportResolver {
 
     private static final Logger logger = LoggerFactory.getLogger(DefaultAsyncSupportResolver.class);
 
-    public final static String SERVLET_30 = "javax.servlet.AsyncListener";
-    public final static String JSR356_WEBSOCKET = "javax.websocket.Endpoint";
+    public final static String SERVLET_30 = "jakarta.servlet.AsyncListener";
+    public final static String JSR356_WEBSOCKET = "jakarta.websocket.Endpoint";
 
     private final AtmosphereConfig config;
 
