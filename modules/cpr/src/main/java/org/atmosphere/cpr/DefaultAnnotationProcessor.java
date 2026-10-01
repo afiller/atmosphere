@@ -39,8 +39,8 @@ import org.atmosphere.util.annotation.AnnotationDetector;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.servlet.ServletContext;
-import javax.servlet.annotation.HandlesTypes;
+import jakarta.servlet.ServletContext;
+import jakarta.servlet.annotation.HandlesTypes;
 import java.io.File;
 import java.io.IOException;
 import java.lang.annotation.Annotation;

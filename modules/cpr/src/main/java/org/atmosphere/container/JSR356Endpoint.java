@@ -27,13 +27,13 @@ import org.atmosphere.websocket.WebSocketProcessor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.servlet.http.HttpSession;
-import javax.websocket.CloseReason;
-import javax.websocket.Endpoint;
-import javax.websocket.EndpointConfig;
-import javax.websocket.MessageHandler;
-import javax.websocket.Session;
-import javax.websocket.server.HandshakeRequest;
+import jakarta.servlet.http.HttpSession;
+import jakarta.websocket.CloseReason;
+import jakarta.websocket.Endpoint;
+import jakarta.websocket.EndpointConfig;
+import jakarta.websocket.MessageHandler;
+import jakarta.websocket.Session;
+import jakarta.websocket.server.HandshakeRequest;
 import java.io.IOException;
 import java.net.URI;
 import java.nio.ByteBuffer;
@@ -245,7 +245,7 @@ public class JSR356Endpoint extends Endpoint {
     }
 
     @Override
-    public void onClose(javax.websocket.Session session, javax.websocket.CloseReason closeCode) {
+    public void onClose(jakarta.websocket.Session session, jakarta.websocket.CloseReason closeCode) {
         logger.trace("{} closed {}", session, closeCode);
         if (request != null) {
             request.destroy();
@@ -254,7 +254,7 @@ public class JSR356Endpoint extends Endpoint {
     }
 
     @Override
-    public void onError(javax.websocket.Session session, java.lang.Throwable t) {
+    public void onError(jakarta.websocket.Session session, java.lang.Throwable t) {
         logger.error("", t);
         webSocketProcessor.notifyListener(webSocket,
                 new WebSocketEventListener.WebSocketEvent<Throwable>(t, WebSocketEventListener.WebSocketEvent.TYPE.EXCEPTION, webSocket));

@@ -21,20 +21,22 @@ import org.atmosphere.util.ReaderInputStream;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.servlet.AsyncContext;
-import javax.servlet.DispatcherType;
-import javax.servlet.RequestDispatcher;
-import javax.servlet.ServletContext;
-import javax.servlet.ServletException;
-import javax.servlet.ServletInputStream;
-import javax.servlet.ServletRequest;
-import javax.servlet.ServletResponse;
-import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletRequestWrapper;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-import javax.servlet.http.Part;
+import jakarta.servlet.AsyncContext;
+import jakarta.servlet.DispatcherType;
+import jakarta.servlet.RequestDispatcher;
+import jakarta.servlet.ServletContext;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.ReadListener;
+import jakarta.servlet.ServletInputStream;
+import jakarta.servlet.ServletRequest;
+import jakarta.servlet.ServletResponse;
+import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletRequestWrapper;
+import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
+import jakarta.servlet.http.HttpUpgradeHandler;
+import jakarta.servlet.http.Part;
 import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
@@ -547,14 +549,6 @@ public class AtmosphereRequest extends HttpServletRequestWrapper {
     }
 
     /**
-     * {@inheritDoc}
-     */
-    @Override
-    public String getRealPath(String path) {
-        return b.request.getRealPath(path);
-    }
-
-    /**
      * Add all headers contained within the Map.
      *
      * @param headers
@@ -676,6 +670,21 @@ public class AtmosphereRequest extends HttpServletRequestWrapper {
         @Override
         public int read() throws IOException {
             return bis.read();
+        }
+
+        @Override
+        public boolean isFinished() {
+            return bis.available() == 0;
+        }
+
+        @Override
+        public boolean isReady() {
+            return true;
+        }
+
+        @Override
+        public void setReadListener(ReadListener readListener) {
+            throw new UnsupportedOperationException("Non-blocking IO is not supported");
         }
     }
 
@@ -818,14 +827,6 @@ public class AtmosphereRequest extends HttpServletRequestWrapper {
     @Override
     public boolean isRequestedSessionIdFromCookie() {
         return b.request.isRequestedSessionIdFromCookie();
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public boolean isRequestedSessionIdFromUrl() {
-        return b.request.isRequestedSessionIdFromUrl();
     }
 
     /**
@@ -1490,6 +1491,21 @@ public class AtmosphereRequest extends HttpServletRequestWrapper {
         public boolean markSupported() {
             return innerStream.markSupported();
         }
+
+        @Override
+        public boolean isFinished() {
+            return false;
+        }
+
+        @Override
+        public boolean isReady() {
+            return true;
+        }
+
+        @Override
+        public void setReadListener(ReadListener readListener) {
+            throw new UnsupportedOperationException("Non-blocking IO is not supported");
+        }
     }
 
     final static class NoOpsRequest implements HttpServletRequest {
@@ -1651,11 +1667,6 @@ public class AtmosphereRequest extends HttpServletRequestWrapper {
         }
 
         @Override
-        public boolean isRequestedSessionIdFromUrl() {
-            return false;
-        }
-
-        @Override
         public boolean isRequestedSessionIdFromURL() {
             return false;
         }
@@ -1783,11 +1794,6 @@ public class AtmosphereRequest extends HttpServletRequestWrapper {
         }
 
         @Override
-        public String getRealPath(String path) {
-            return path;
-        }
-
-        @Override
         public String getRemoteAddr() {
             return "";
         }
@@ -1864,6 +1870,35 @@ public class AtmosphereRequest extends HttpServletRequestWrapper {
         @Override
         public AsyncContext startAsync(ServletRequest request, ServletResponse response) {
             return null;
+        }
+
+        @Override
+        public long getContentLengthLong() {
+            return 0;
+        }
+
+        @Override
+        public String changeSessionId() {
+            return null;
+        }
+
+        @Override
+        public <T extends HttpUpgradeHandler> T upgrade(Class<T> handlerClass) throws IOException, ServletException {
+            throw new UnsupportedOperationException("HTTP upgrade is not supported");
+        }
+
+        // Legacy methods: still abstract in Servlet 5 (compile API), removed
+        // in Servlet 6. Kept without @Override so they are plain extra
+        // methods at runtime on Tomcat 11.
+
+        @Deprecated
+        public boolean isRequestedSessionIdFromUrl() {
+            return false;
+        }
+
+        @Deprecated
+        public String getRealPath(String path) {
+            return path;
         }
     }
 

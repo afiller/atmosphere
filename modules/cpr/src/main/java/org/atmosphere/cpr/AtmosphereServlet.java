@@ -18,11 +18,11 @@ package org.atmosphere.cpr;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.servlet.ServletConfig;
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import jakarta.servlet.ServletConfig;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 /**
@@ -103,10 +103,10 @@ public class AtmosphereServlet extends HttpServlet {
     /**
      * Delegate the request processing to an instance of {@link org.atmosphere.cpr.AsyncSupport}.
      *
-     * @param req the {@link javax.servlet.http.HttpServletRequest}
-     * @param res the {@link javax.servlet.http.HttpServletResponse}
+     * @param req the {@link jakarta.servlet.http.HttpServletRequest}
+     * @param res the {@link jakarta.servlet.http.HttpServletResponse}
      * @throws java.io.IOException
-     * @throws javax.servlet.ServletException
+     * @throws jakarta.servlet.ServletException
      */
     @Override
     public void doHead(HttpServletRequest req, HttpServletResponse res)
@@ -117,10 +117,10 @@ public class AtmosphereServlet extends HttpServlet {
     /**
      * Delegate the request processing to an instance of {@link org.atmosphere.cpr.AsyncSupport}
      *
-     * @param req the {@link javax.servlet.http.HttpServletRequest}
-     * @param res the {@link javax.servlet.http.HttpServletResponse}
+     * @param req the {@link jakarta.servlet.http.HttpServletRequest}
+     * @param res the {@link jakarta.servlet.http.HttpServletResponse}
      * @throws java.io.IOException
-     * @throws javax.servlet.ServletException
+     * @throws jakarta.servlet.ServletException
      */
     @Override
     public void doOptions(HttpServletRequest req, HttpServletResponse res)
@@ -131,10 +131,10 @@ public class AtmosphereServlet extends HttpServlet {
     /**
      * Delegate the request processing to an instance of {@link org.atmosphere.cpr.AsyncSupport}.
      *
-     * @param req the {@link javax.servlet.http.HttpServletRequest}
-     * @param res the {@link javax.servlet.http.HttpServletResponse}
+     * @param req the {@link jakarta.servlet.http.HttpServletRequest}
+     * @param res the {@link jakarta.servlet.http.HttpServletResponse}
      * @throws java.io.IOException
-     * @throws javax.servlet.ServletException
+     * @throws jakarta.servlet.ServletException
      */
     @Override
     public void doTrace(HttpServletRequest req, HttpServletResponse res)
@@ -145,10 +145,10 @@ public class AtmosphereServlet extends HttpServlet {
     /**
      * Delegate the request processing to an instance of {@link org.atmosphere.cpr.AsyncSupport}.
      *
-     * @param req the {@link javax.servlet.http.HttpServletRequest}
-     * @param res the {@link javax.servlet.http.HttpServletResponse}
+     * @param req the {@link jakarta.servlet.http.HttpServletRequest}
+     * @param res the {@link jakarta.servlet.http.HttpServletResponse}
      * @throws java.io.IOException
-     * @throws javax.servlet.ServletException
+     * @throws jakarta.servlet.ServletException
      */
     @Override
     public void doDelete(HttpServletRequest req, HttpServletResponse res)
@@ -159,10 +159,10 @@ public class AtmosphereServlet extends HttpServlet {
     /**
      * Delegate the request processing to an instance of {@link org.atmosphere.cpr.AsyncSupport}.
      *
-     * @param req the {@link javax.servlet.http.HttpServletRequest}
-     * @param res the {@link javax.servlet.http.HttpServletResponse}
+     * @param req the {@link jakarta.servlet.http.HttpServletRequest}
+     * @param res the {@link jakarta.servlet.http.HttpServletResponse}
      * @throws java.io.IOException
-     * @throws javax.servlet.ServletException
+     * @throws jakarta.servlet.ServletException
      */
     @Override
     public void doPut(HttpServletRequest req, HttpServletResponse res)
@@ -173,10 +173,10 @@ public class AtmosphereServlet extends HttpServlet {
     /**
      * Delegate the request processing to an instance of {@link org.atmosphere.cpr.AsyncSupport}.
      *
-     * @param req the {@link javax.servlet.http.HttpServletRequest}
-     * @param res the {@link javax.servlet.http.HttpServletResponse}
+     * @param req the {@link jakarta.servlet.http.HttpServletRequest}
+     * @param res the {@link jakarta.servlet.http.HttpServletResponse}
      * @throws java.io.IOException
-     * @throws javax.servlet.ServletException
+     * @throws jakarta.servlet.ServletException
      */
     @Override
     public void doGet(HttpServletRequest req, HttpServletResponse res)
@@ -187,10 +187,10 @@ public class AtmosphereServlet extends HttpServlet {
     /**
      * Delegate the request processing to an instance of {@link org.atmosphere.cpr.AsyncSupport}.
      *
-     * @param req the {@link javax.servlet.http.HttpServletRequest}
-     * @param res the {@link javax.servlet.http.HttpServletResponse}
+     * @param req the {@link jakarta.servlet.http.HttpServletRequest}
+     * @param res the {@link jakarta.servlet.http.HttpServletResponse}
      * @throws java.io.IOException
-     * @throws javax.servlet.ServletException
+     * @throws jakarta.servlet.ServletException
      */
     @Override
     public void doPost(HttpServletRequest req, HttpServletResponse res)

@@ -19,8 +19,8 @@ import org.atmosphere.config.AtmosphereHandlerConfig;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.servlet.ServletConfig;
-import javax.servlet.ServletContext;
+import jakarta.servlet.ServletConfig;
+import jakarta.servlet.ServletContext;
 import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.HashMap;
@@ -126,16 +126,16 @@ public class AtmosphereConfig {
     }
 
     /**
-     * Is {@link javax.servlet.http.HttpSession} supported.
+     * Is {@link jakarta.servlet.http.HttpSession} supported.
      *
-     * @return {@link javax.servlet.http.HttpSession} supported.
+     * @return {@link jakarta.servlet.http.HttpSession} supported.
      */
     public boolean isSupportSession() {
         return supportSession;
     }
 
     /**
-     * Enable/Disable {@link javax.servlet.http.HttpSession}.
+     * Enable/Disable {@link jakarta.servlet.http.HttpSession}.
      *
      * @param supportSession true to enable, false to disable
      */
@@ -153,7 +153,7 @@ public class AtmosphereConfig {
     }
 
     /**
-     * Enable/Disable {@link javax.servlet.http.HttpSession} timeout removal when a connection exists.
+     * Enable/Disable {@link jakarta.servlet.http.HttpSession} timeout removal when a connection exists.
      *
      * @param sessionTimeoutRemovalAllowed true to enable, false to disable
      */

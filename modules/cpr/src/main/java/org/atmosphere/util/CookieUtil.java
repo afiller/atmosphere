@@ -15,7 +15,7 @@
  */
 package org.atmosphere.util;
 
-import javax.servlet.http.Cookie;
+import jakarta.servlet.http.Cookie;
 import java.text.DateFormat;
 import java.text.FieldPosition;
 import java.text.SimpleDateFormat;

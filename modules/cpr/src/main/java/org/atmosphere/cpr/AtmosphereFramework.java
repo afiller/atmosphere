@@ -58,10 +58,10 @@ import org.atmosphere.websocket.protocol.SimpleHttpProtocol;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.servlet.Servlet;
-import javax.servlet.ServletConfig;
-import javax.servlet.ServletContext;
-import javax.servlet.ServletException;
+import jakarta.servlet.Servlet;
+import jakarta.servlet.ServletConfig;
+import jakarta.servlet.ServletContext;
+import jakarta.servlet.ServletException;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FilenameFilter;
@@ -462,7 +462,7 @@ public class AtmosphereFramework {
     }
 
     /**
-     * Create an AtmosphereFramework and initialize it via {@link AtmosphereFramework#init(javax.servlet.ServletConfig)}.
+     * Create an AtmosphereFramework and initialize it via {@link AtmosphereFramework#init(jakarta.servlet.ServletConfig)}.
      */
     public AtmosphereFramework(ServletConfig sc) throws ServletException {
         this(false, true);
@@ -1559,7 +1559,7 @@ public class AtmosphereFramework {
      * Initialize {@link AtmosphereServletProcessor}.
      *
      * @param sc the {@link ServletConfig}
-     * @throws javax.servlet.ServletException
+     * @throws jakarta.servlet.ServletException
      */
     public void initAtmosphereHandler(ServletConfig sc) throws ServletException {
         AtmosphereHandler a;
